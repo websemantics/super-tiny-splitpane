@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Super Tiny Splitline</title>
+    <meta name="description" content="Bare minimum implementation of a Splitpane UI with supports for horizontal and vertical layouts">
+    <link rel="author" href="https://github.com/websemantics/" type="text/html">
+    <style>
+        html, body, .splitpane { height: 100%; height: 100%; margin: 0; padding: 0 }
+        .splitpane *:first-child, .splitpane *:last-child { display: flex; align-items: center; 
+        justify-content: center;  text-transform: uppercase; letter-spacing: 2px; font: 14px Helvetica }
+        .blue { color: #3da2f5; background-color: #9ed1fa }
+        .green { color: #4daf51; background-color: #a6d8a8 }
+        .yellow { color: #ccb800; background-color: #fff280 }
+        .orange { color: #ff764d; background-color: #ffb199 }
+        .brown { color: #cba54d; background-color: #ede0c1 }
+        .red { color: #fc3640; background-color: #fec2c5 }
+        .purple { color: #ef5d7c; background-color: #f0cefa }
+        .asphalt { color: #607d8b; background-color: #b4c3cb }
+        .brown { color: #795649; background-color: #cfb8af }
+        .magenta { color: #6e3dc2; background-color: #c5b1e7 }
+        .handle { background-color: #f1f1f1; }
+        .handle:hover { background-color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="vertical splitpane">
+        <div class="blue" style="height: 50%">Sky Blue</div>
+        <div class="handle"></div>
+        <div class="splitpane">
+            <div class="magenta" style="width: 50%">Magenta</div>
+            <div class="handle"></div>
+            <div class="vertical splitpane">
+                <div class="orange" style="height: 50%">Orange</div>
+                <div class="handle"></div>
+                <div class="splitpane">
+                    <div class="asphalt" style="width: 50%">Asphalt</div>
+                    <div class="handle"></div>
+                    <div class="vertical splitpane">
+                        <div class="brown" style="height: 50%">Brown</div>
+                        <div class="handle"></div>
+                        <div class="splitpane">
+                            <div class="green" style="width: 50%">Green</div>
+                            <div class="handle"></div>
+                            <div class="yellow">Yellow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="splitpane.js"></script>
+</body>
+</html>
