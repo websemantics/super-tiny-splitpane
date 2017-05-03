@@ -4,7 +4,7 @@
 ╰─╯ ╰─╯ ┴   ╰─╯ ┴╰─    ┴  ┴ ╯╰╯ ╰─╯   ╰─╯ ┴   ┴─╯ ┴  ┴  ┴   ┴ ┴ ╯╰╯ ╰─╯  
 Under 2kb and without dependencies 
 ```
-> Bare minimum implementation of a Splitpane UI with supports for horizontal and vertical layouts.
+> Bare minimum implementation of a Splitpane UI with support for horizontal and vertical layouts.
 
 [![Live demo](https://img.shields.io/badge/Live%20demo-%E2%86%92-9D6EB3.svg?style=flat-square)](https://websemantics.github.io/super-tiny-splitpane)
 
