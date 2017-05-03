@@ -8,22 +8,6 @@
  * Bare minimum implementation of a Splitpane UI with supports for 
  * horizontal and vertical layouts
  * 
- * #### Note
- * The following is the minimum markup and style rules to use Splitpane
- *
- *  <div class="splitpane">                 <!-- for vertical splitpane add  `vertical` -->
- *    <div style="width: 50%"></div>        <!-- class and set `height` of first child -->
- *    <div class="handle"></div>
- *   <div></div>
- *  </div> 
- * 
- *  <style>
- *    html, body { height: 100% }
- *    .splitpane {width: 100%; height: 100% }
- *    .handle {background-color: lightgrey; }
- *    .handle:hover {background-color: grey }
- *  </style>
- * 
  * @copyright (c) 2016-2017, Web Semantics, Inc.
  * @author Adnan M.Sagar, PhD. <adnan@websemantics.ca>
  * @license Distributed under the terms of the MIT License.
