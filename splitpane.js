@@ -149,13 +149,19 @@
         Object.keys( options || {} ).forEach( function( key ){ defaults[key] = options[key] })
     }
 
-    window.addEventListener("load", function(event) { /* activate all splitpanes, register resize event */
+    /**
+     * @function init - Activate all splitpanes, register resize event
+     */
+     function init() { 
         var panes = [].slice.call(document.querySelectorAll('.splitpane') || []).map(
-                            function (splitpane) { return new Splitpane(splitpane) })
+                        function (splitpane) { return new self(splitpane) })
         
         panes.length > 0 && !defaults.disable && window.addEventListener('resize', 
-                            function(event){ panes.forEach(function(pane){ pane.resize() })}, true)
-    })    
+                        function(event){ panes.forEach(function(pane){ pane.resize() })}, true)
+     }
+    
+    /* Register a document onload event or execute initialize directly otherwise */
+    if (document.readyState === "complete") { init() } else {window.addEventListener("load", init)}
     
     return self
 }))
