@@ -13,7 +13,11 @@
  * @license Distributed under the terms of the MIT License.
  */
 
-(function (exports) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) { define(factory) }
+    else if (typeof module === 'object' && module.exports) { module.exports = factory() }
+    else { root.Splitpane = factory() }
+}(this, function () {
     'use strict'
 
     var defaults = {  /* Library defaults, change using the `defaults` static method */
@@ -55,7 +59,7 @@
      * @property {Number} handle - Handle thickness (`width` or `height` depending on orientation)
      * @constructor
      */
-    var self = exports.Splitpane = function (el, options) {
+    var self = function (el, options) {
 
         var orien      = el.classList.contains('vertical') ? 0 : 1
         var min        = defaults[['minHeight', 'minWidth'][orien]]
@@ -113,7 +117,6 @@
          * @returns {String}
          * @private
          */
-
         function _mustach(template, data, path) {
             path = path || ''
             Object.keys(data || {}).forEach(function (key) {
@@ -152,5 +155,7 @@
         
         panes.length > 0 && !defaults.disable && window.addEventListener('resize', 
                             function(event){ panes.forEach(function(pane){ pane.resize() })}, true)
-    })
-})(this);
+    })    
+    
+    return self
+}))

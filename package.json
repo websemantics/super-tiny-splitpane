@@ -1,6 +1,6 @@
 {
   "name": "super-tiny-splitpane",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bare minimum implementation of a Splitpane UI with support for horizontal and vertical layouts.",
   "main": "splitpane.js",
   "scripts": {
@@ -24,7 +24,6 @@
     "url": "https://github.com/websemantics/super-tiny-splitpane/issues"
   },
   "dependencies": {
-    "jquery": "*"
   },
   "homepage": "https://github.com/websemantics/super-tiny-splitpane#readme"
 }
