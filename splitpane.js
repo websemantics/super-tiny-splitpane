@@ -26,15 +26,15 @@
         minHeight: 100,
         minWidth:100,
         templates : [
-        [ /* vertical layout: top, handle and bottom */
-        'left:0; right:0; top:0; height: {ratio}%; padding-bottom: {half}px',
-        'left:0; right:0; top:{ratio}%; width: 100%; margin-top: -{half}px; height: {handle}px; cursor: {cursor}; z-index: 1',
-        'left:0; right:0; bottom:0; height: {supplement}%; padding-top: {half}px'],
         [ /* horizontal layout: left, handle and right */
         'top:0; bottom:0; left:0; width: {ratio}%; padding-right: {half}px',
         'top:0; bottom:0; left:{ratio}%; margin-left: -{half}px; width: {handle}px; cursor: {cursor}; z-index: 1',
-        'top:0; bottom:0; right:0; width: {supplement}%; padding-left: {half}px']],
-        cursor: ['row-resize', 'col-resize']}
+        'top:0; bottom:0; right:0; width: {supplement}%; padding-left: {half}px'],
+        [ /* vertical layout: top, handle and bottom */
+        'left:0; right:0; top:0; height: {ratio}%; padding-bottom: {half}px',
+        'left:0; right:0; top:{ratio}%; width: 100%; margin-top: -{half}px; height: {handle}px; cursor: {cursor}; z-index: 1',
+        'left:0; right:0; bottom:0; height: {supplement}%; padding-top: {half}px']],
+        cursor: ['col-resize', 'row-resize']}
 
     /**
      * Create a Splitpane instance.
@@ -51,7 +51,7 @@
      * ```js
      * var split = new Splitpane( '#app' )
      * ```
-     * @property {Number} orien - Splitpane orientation: 0 = vertical, 1 = horizontal (*defult)
+     * @property {Number} orien - Splitpane orientation: 1 = vertical, 0 = horizontal (*defult)
      * @property {Number} min - Splitpane pane's minimum width (horizontal) or height (vertical)
      * @property {ClientRect} container - Splitpane bounding client rectangle
      * @property {NodeList} children - Splitpane children, [0]=top/left pane, [1]=handle, [2]=bottom/right pane
@@ -61,26 +61,26 @@
      */
     var self = function (el, options) {
 
-        var orien      = el.classList.contains('vertical') ? 0 : 1
-        var min        = defaults[['minHeight', 'minWidth'][orien]]
+        var orien      = el.classList.contains('vertical') ? 1 : 0
+        var min        = defaults[['minWidth', 'minHeight'][orien]]
         var container  = el.getBoundingClientRect()
         var children   = el.querySelectorAll(':scope > div')
         var cursor     = window.getComputedStyle(children[1]).getPropertyValue('cursor')
-        var handle     = children[1].getBoundingClientRect()[['height', 'width'][orien]]
+        var handle     = children[1].getBoundingClientRect()[['width', 'height'][orien]]
         
         /* set defaults for handle thickness and mouse cursor if not set */
-        handle = handle < 1 || handle === container[['height', 'width'][orien]] ? defaults.handle : handle
+        handle = handle < 1 || handle === container[['width', 'height'][orien]] ? defaults.handle : handle
         cursor = cursor === 'auto' ? defaults.cursor[orien] : cursor,
 
         /* Handle */ children[1].addEventListener('mousedown', function (event) {
-            var max = container[['height', 'width'][orien]] - min
+            var max = container[['width', 'height'][orien]] - min
 
             var listeners = [ 
                 function mousemove(event) {  
-                    var xy = event[['pageY', 'pageX'][orien]] - container[['top', 'left'][orien]]
+                    var xy = event[['pageX', 'pageY'][orien]] - container[['left', 'top'][orien]]
 
                     event.preventDefault()
-                    _compile(( xy > min ? xy < max ? xy : max : min ) / container[['height', 'width'][orien]])
+                    _compile(( xy > min ? xy < max ? xy : max : min ) / container[['width', 'height'][orien]])
                 },
                 function mouseup( event ) { 
                     listeners.forEach(function (l) { document.removeEventListener(l.name, l)
@@ -135,8 +135,12 @@
             container = el.getBoundingClientRect()
         }
 
-        _compile( children[0].getBoundingClientRect()[['height', 'width'][orien]] / 
-                  container[['height', 'width'][orien]])
+        var attr = ['width', 'height'][orien] /* Calculate ratio (@see _compile) with either *
+                                               * the first or the second pane's width/height */
+
+        _compile((children[0].getBoundingClientRect()[attr]  < container[attr] ? 
+                  children[0].getBoundingClientRect()[attr]  : container[attr] - 
+                  children[2].getBoundingClientRect()[attr]) / container[attr] )
     }
 
     /**
